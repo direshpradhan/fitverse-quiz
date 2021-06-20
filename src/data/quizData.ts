@@ -8,7 +8,6 @@ const quizOne: Quiz = {
       question:
         "How many avengers were there in first Avengers movie released in 2012?",
       points: 5,
-      negativePoint: 2,
       options: [
         {
           text: "22",
@@ -24,7 +23,7 @@ const quizOne: Quiz = {
       question:
         "What was Dr. Strange doing during the fight of New York in 2012?",
       points: 15,
-      negativePoint: 7,
+      negativePoint: 3,
       options: [
         {
           text: "getting trained as master of the mystic arts",
