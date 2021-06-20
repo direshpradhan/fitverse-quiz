@@ -52,6 +52,6 @@ const quizOne: Quiz = {
   ],
 };
 
-console.log(quizOne.questions[2].negativePoint);
+// console.log(quizOne.questions[2].negativePoint);
 
 export { quizOne };

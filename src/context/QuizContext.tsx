@@ -22,6 +22,12 @@ const quizReducer = (state: InitialState, action: Action) => {
       console.log("Score.....");
       return { ...state, score: state.score + action.payload.score };
 
+    case "INCREMENT_QUESTION_NUMBER":
+      return {
+        ...state,
+        currentQuestionNumber: state.currentQuestionNumber + 1,
+      };
+
     default:
       return state;
   }
