@@ -52,29 +52,32 @@ export const Quiz = () => {
   }, [dispatch]);
   return (
     <div>
-      <h3>{quizData.quizName}</h3>
-      <div>Score: {score}</div>
-      <div>Question No.:{currentQuestionNumber}</div>
-      <div>{currentQuestion?.question}</div>
-      {currentQuestion?.options.map((option) => (
-        <button
-          //   style={{
-          //     backgroundColor: option.isRight ? rightAnswerBg : wrongAnswerBg,
-          //   }}
-          disabled={isOptionClickDisabled}
-          className={`block bg-gray-300 w-full ${
-            isOptionClickDisabled && option.isRight && "bg-green-500"
-          } ${
-            option.id === selectedOptionId &&
-            isOptionClickDisabled &&
-            !option.isRight &&
-            "bg-red-500"
-          }`}
-          onClick={() => rightAnswerHandler(option)}
-        >
-          {option.text}
-        </button>
-      ))}
+      <div className="flex flex-col items-center">
+        <div className="flex justify-between text-base font-semibold w-3/4 mb-4">
+          <h3 className="">{quizData.quizName}</h3>
+          <div className="">Score: {score}</div>
+        </div>
+        <div className="p-2 mb-4 text-lg">
+          Question {currentQuestionNumber} :
+          <span className="pl-3">{currentQuestion?.question}</span>
+        </div>
+        {currentQuestion?.options.map((option) => (
+          <button
+            disabled={isOptionClickDisabled}
+            className={`block bg-gray-300 w-3/4 border-4 border-white p-3 ${
+              isOptionClickDisabled && option.isRight && "bg-green-500"
+            } ${
+              option.id === selectedOptionId &&
+              isOptionClickDisabled &&
+              !option.isRight &&
+              "bg-red-500"
+            }`}
+            onClick={() => rightAnswerHandler(option)}
+          >
+            {option.text}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
