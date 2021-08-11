@@ -1,16 +1,14 @@
-import { createContext, FunctionComponent, useState } from "react";
+import { createContext, FunctionComponent, useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
-import { loginService } from "../services/loginService/Login.services";
-import { signupService } from "../services/signupService/Signup.services";
+import { loginService } from "../../services/loginService/Login.services";
+import { signupService } from "../../services/signupService/Signup.services";
 import { AuthContextType, LocationState } from "./AuthContext.types";
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 export const AuthProvider: FunctionComponent = ({ children }) => {
-  const { token: localStorageToken } = JSON.parse(
-    localStorage?.getItem("login") as string
-  );
-  const [token, setToken] = useState<string | null>(localStorageToken);
+  const loginObject = JSON.parse(localStorage?.getItem("login") as string);
+  const [token, setToken] = useState<string | null>(loginObject?.token);
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as LocationState;
@@ -93,3 +91,5 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+export const useAuth = () => useContext(AuthContext);

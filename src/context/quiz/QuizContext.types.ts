@@ -1,4 +1,4 @@
-import { Quiz } from "../data/quizData.types";
+import { Quiz } from "../../data/quizData.types";
 
 export type InitialState = {
   allQuizzes: Array<Quiz> | null;

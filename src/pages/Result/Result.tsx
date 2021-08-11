@@ -1,4 +1,4 @@
-import { useQuiz } from "../../context/QuizContext";
+import { useQuiz } from "../../context/quiz/QuizContext";
 
 export const Result = () => {
   const {

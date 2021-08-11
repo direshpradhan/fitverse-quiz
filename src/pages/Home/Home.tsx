@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useQuiz } from "../../context/QuizContext";
+import { useQuiz } from "../../context/quiz/QuizContext";
 
 export const Home = () => {
   const {

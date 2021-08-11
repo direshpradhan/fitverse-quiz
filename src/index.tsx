@@ -3,9 +3,9 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { QuizProvider } from "./context/QuizContext";
+import { QuizProvider } from "./context/quiz/QuizContext";
 import { BrowserRouter as Router } from "react-router-dom";
-import { AuthProvider } from "./context/AuthContext";
+import { AuthProvider } from "./context/auth/AuthContext";
 
 ReactDOM.render(
   <React.StrictMode>

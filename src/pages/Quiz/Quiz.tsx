@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { useQuiz } from "../../context/QuizContext";
+import { useQuiz } from "../../context/quiz/QuizContext";
 import { Option, Question } from "../../data/quizData.types";
 
 export const Quiz = () => {

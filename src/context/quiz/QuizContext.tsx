@@ -6,8 +6,8 @@ import {
   useReducer,
 } from "react";
 import { isNumber } from "util";
-import { quizData } from "../data/quizData";
-import { Quiz } from "../data/quizData.types";
+import { quizData } from "../../data/quizData";
+import { Quiz } from "../../data/quizData.types";
 import { Action, InitialState, QuizContextType } from "./QuizContext.types";
 
 const initialState: InitialState = {
