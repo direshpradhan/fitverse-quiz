@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   createContext,
   FunctionComponent,
@@ -6,8 +7,9 @@ import {
   useReducer,
 } from "react";
 import { isNumber } from "util";
-import { quizData } from "../../data/quizData";
+// import { quizData } from "../../data/quizData";
 import { Quiz } from "../../data/quizData.types";
+import { API_URL } from "../../utils/constants";
 import { Action, InitialState, QuizContextType } from "./QuizContext.types";
 
 const initialState: InitialState = {
@@ -26,7 +28,8 @@ const QuizContext = createContext<QuizContextType>({
 const quizReducer = (state: InitialState, action: Action): InitialState => {
   switch (action.type) {
     case "INITIALIZE_ALL_QUIZZES":
-      return { ...state, allQuizzes: quizData };
+      console.log(action.payload);
+      return { ...state, allQuizzes: action.payload };
 
     case "INCREMENT_SCORE":
       console.log("Score.....");
@@ -46,8 +49,8 @@ const quizReducer = (state: InitialState, action: Action): InitialState => {
       };
 
     case "SET_CURRENT_QUIZ":
-      const selectedQuiz = quizData.find(
-        (quiz) => quiz.id === action.payload.quizId
+      const selectedQuiz = state.allQuizzes?.find(
+        (quiz) => quiz._id === action.payload.quizId
       ) as Quiz;
 
       selectedQuiz.questions.forEach(
@@ -64,8 +67,8 @@ const quizReducer = (state: InitialState, action: Action): InitialState => {
         currentQuiz: {
           ...state.currentQuiz,
           questions: state.currentQuiz?.questions.map((question) => {
-            console.log(question.id);
-            return question.id === questionId
+            console.log(question._id);
+            return question._id === questionId
               ? { ...question, selectedOptionId: optionId }
               : question;
           }),
@@ -92,11 +95,27 @@ export const QuizProvider: FunctionComponent = ({ children }) => {
   const [state, dispatch] = useReducer(quizReducer, initialState);
 
   useEffect(() => {
-    dispatch({
-      type: "INITIALIZE_ALL_QUIZZES",
-      payload: { allQuizzes: quizData },
-    });
+    (async function () {
+      try {
+        const response = await axios.get(`${API_URL}/quiz`);
+        if (response.status === 200) {
+          dispatch({
+            type: "INITIALIZE_ALL_QUIZZES",
+            payload: response.data.quizzes,
+          });
+        }
+      } catch (error) {
+        console.log("Error while getting data from backend...", error);
+      }
+    })();
   }, []);
+
+  // useEffect(() => {
+  //   dispatch({
+  //     type: "INITIALIZE_ALL_QUIZZES",
+  //     payload: { allQuizzes: quizData },
+  //   });
+  // }, []);
   return (
     <QuizContext.Provider
       value={{

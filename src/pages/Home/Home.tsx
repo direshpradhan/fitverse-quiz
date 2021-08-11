@@ -8,6 +8,8 @@ export const Home = () => {
     dispatch,
   } = useQuiz();
 
+  console.log(allQuizzes);
+
   useEffect(() => {
     dispatch({ type: "RESET_QUIZ_STATE" });
   }, [dispatch]);
@@ -20,7 +22,7 @@ export const Home = () => {
       <div className="flex">
         {allQuizzes?.map((quiz) => {
           return (
-            <Link to={`/quiz/${quiz.id}`}>
+            <Link to={`/quiz/${quiz._id}`}>
               <div className="border border-black max-w-max p-4 ml-8">
                 <h2 className="text-lg font-bold">{quiz.quizName}</h2>
                 <div>Test Yourself by taking this Quiz!!</div>

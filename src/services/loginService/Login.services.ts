@@ -1,8 +1,8 @@
 import axios from "axios";
-import { DATABASE_URL } from "../../constants";
+import { API_URL } from "../../utils/constants";
 
 export const loginService = async (email: string, password: string) => {
-  return axios.post(`${DATABASE_URL}/user/login`, {
+  return axios.post(`${API_URL}/user/login`, {
     email,
     password,
   });

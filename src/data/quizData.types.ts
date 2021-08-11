@@ -1,11 +1,11 @@
 export type Option = {
-  id: string;
+  _id: string;
   text: string;
   isRight: boolean;
 };
 
 export type Question = {
-  id: string;
+  _id: string;
   question: string;
   points: number;
   negativePoint?: number;
@@ -14,8 +14,12 @@ export type Question = {
 };
 
 export type Quiz = {
-  id: string;
+  _id: string;
   quizName: string;
   playTime: string;
+  totalPoints: number;
+  totalQuestions: number;
+  description: string;
+  imageUrl: string;
   questions: Question[];
 };

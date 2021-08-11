@@ -33,11 +33,11 @@ export const Quiz = () => {
   };
 
   const optionClickHandler = (option: Option) => {
-    setSelectedOptionId(() => option.id);
+    setSelectedOptionId(() => option._id);
     dispatch({ type: "DISABLE_OPTION_CLICK" });
     dispatch({
       type: "SET_SELECTED_OPTION",
-      payload: { questionId: currentQuestion.id, optionId: option.id },
+      payload: { questionId: currentQuestion._id, optionId: option._id },
     });
     updateScore(option);
     setTimeout(() => {
@@ -69,7 +69,7 @@ export const Quiz = () => {
             className={`block bg-gray-300 w-3/4 border-4 border-white p-3 ${
               isOptionClickDisabled && option.isRight && "bg-green-500"
             } ${
-              option.id === selectedOptionId &&
+              option._id === selectedOptionId &&
               isOptionClickDisabled &&
               !option.isRight &&
               "bg-red-500"

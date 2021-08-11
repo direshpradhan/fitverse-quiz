@@ -1,7 +1,9 @@
 import { Quiz } from "../../data/quizData.types";
 
+export type AllQuizzes = Quiz[];
+
 export type InitialState = {
-  allQuizzes: Array<Quiz> | null;
+  allQuizzes: AllQuizzes | null;
   currentQuestionNumber: number;
   score: number;
   currentQuiz: Quiz | null;
@@ -24,5 +26,5 @@ export type Action =
   | { type: "DISABLE_OPTION_CLICK" }
   | { type: "ENABLE_OPTION_CLICK" }
   | { type: "SET_CURRENT_QUIZ"; payload: { quizId: string } }
-  | { type: "INITIALIZE_ALL_QUIZZES"; payload: { allQuizzes: Array<Quiz> } }
+  | { type: "INITIALIZE_ALL_QUIZZES"; payload: AllQuizzes }
   | { type: "RESET_QUIZ_STATE" };

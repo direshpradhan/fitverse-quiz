@@ -24,7 +24,7 @@ export const Result = () => {
                 className={`block bg-gray-300 border-4 border-white p-3 ${
                   option.isRight && "bg-green-500"
                 } ${
-                  option.id === question.selectedOptionId &&
+                  option._id === question.selectedOptionId &&
                   !option.isRight &&
                   "bg-red-500"
                 }`}

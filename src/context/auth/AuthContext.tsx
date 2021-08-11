@@ -2,6 +2,7 @@ import { createContext, FunctionComponent, useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { loginService } from "../../services/loginService/Login.services";
 import { signupService } from "../../services/signupService/Signup.services";
+import { setupAuthHeadersForServiceCalls } from "../../utils/setupAuthHeadersForServiceCalls";
 import { AuthContextType, LocationState } from "./AuthContext.types";
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
@@ -12,9 +13,11 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as LocationState;
+  token && setupAuthHeadersForServiceCalls(token);
 
   const loginUser = (loginToken: string | null) => {
     setToken(loginToken);
+    setupAuthHeadersForServiceCalls(loginToken);
     localStorage?.setItem(
       "login",
       JSON.stringify({ login: true, token: loginToken })
@@ -73,6 +76,7 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
 
   const logoutUser = () => {
     setToken(null);
+    setupAuthHeadersForServiceCalls(null);
     localStorage.removeItem("login");
     navigate("/");
   };
