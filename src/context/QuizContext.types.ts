@@ -24,4 +24,5 @@ export type Action =
   | { type: "DISABLE_OPTION_CLICK" }
   | { type: "ENABLE_OPTION_CLICK" }
   | { type: "SET_CURRENT_QUIZ"; payload: { quizId: string } }
-  | { type: "INITIALIZE_ALL_QUIZZES"; payload: { allQuizzes: Array<Quiz> } };
+  | { type: "INITIALIZE_ALL_QUIZZES"; payload: { allQuizzes: Array<Quiz> } }
+  | { type: "RESET_QUIZ_STATE" };

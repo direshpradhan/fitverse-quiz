@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useQuiz } from "../../context/QuizContext";
-// import { quizData } from "../../data/quizData";
 import { Option, Question } from "../../data/quizData.types";
 
 export const Quiz = () => {
   const { quizId } = useParams();
+  const navigate = useNavigate();
+
   const {
     state: { score, currentQuestionNumber, isOptionClickDisabled, currentQuiz },
     dispatch,
@@ -14,15 +15,8 @@ export const Quiz = () => {
   const currentQuestion = currentQuiz?.questions[
     currentQuestionNumber - 1
   ] as Question;
-  console.log(currentQuestion?.points);
 
-  const rightAnswerHandler = (option: Option) => {
-    setSelectedOptionId(option.id);
-    dispatch({ type: "DISABLE_OPTION_CLICK" });
-    dispatch({
-      type: "SET_SELECTED_OPTION",
-      payload: { questionId: currentQuestion.id, optionId: option.id },
-    });
+  const updateScore = (option: Option) => {
     option.isRight
       ? dispatch({
           type: "INCREMENT_SCORE",
@@ -36,17 +30,25 @@ export const Quiz = () => {
             score: currentQuestion?.negativePoint as Number,
           },
         });
+  };
+
+  const optionClickHandler = (option: Option) => {
+    setSelectedOptionId(() => option.id);
+    dispatch({ type: "DISABLE_OPTION_CLICK" });
+    dispatch({
+      type: "SET_SELECTED_OPTION",
+      payload: { questionId: currentQuestion.id, optionId: option.id },
+    });
+    updateScore(option);
     setTimeout(() => {
-      currentQuiz &&
-        currentQuestionNumber < currentQuiz.questions.length &&
-        dispatch({ type: "INCREMENT_QUESTION_NUMBER" });
+      currentQuestionNumber === currentQuiz?.questions.length
+        ? navigate("/result", { replace: true })
+        : dispatch({ type: "INCREMENT_QUESTION_NUMBER" });
       dispatch({ type: "ENABLE_OPTION_CLICK" });
     }, 3000);
   };
 
   useEffect(() => {
-    console.log("useEffect..");
-
     dispatch({ type: "SET_CURRENT_QUIZ", payload: { quizId } });
     return () => {};
   }, [dispatch, quizId]);
@@ -72,7 +74,7 @@ export const Quiz = () => {
               !option.isRight &&
               "bg-red-500"
             }`}
-            onClick={() => rightAnswerHandler(option)}
+            onClick={() => optionClickHandler(option)}
           >
             {option.text}
           </button>

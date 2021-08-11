@@ -5,6 +5,7 @@ import {
   useEffect,
   useReducer,
 } from "react";
+import { isNumber } from "util";
 import { quizData } from "../data/quizData";
 import { Quiz } from "../data/quizData.types";
 import { Action, InitialState, QuizContextType } from "./QuizContext.types";
@@ -33,9 +34,10 @@ const quizReducer = (state: InitialState, action: Action): InitialState => {
       return { ...state, score: state.score + action.payload.score };
 
     case "DECREMENT_SCORE":
-      console.log("Score.....");
-      console.log(action.payload);
-      return { ...state, score: state.score - action.payload.score };
+      if (isNumber(action.payload.score)) {
+        return { ...state, score: state.score - action.payload.score };
+      }
+      return state;
 
     case "INCREMENT_QUESTION_NUMBER":
       return {
@@ -44,38 +46,42 @@ const quizReducer = (state: InitialState, action: Action): InitialState => {
       };
 
     case "SET_CURRENT_QUIZ":
-      console.log("entered");
-      console.log(action.payload.quizId);
       const selectedQuiz = quizData.find(
         (quiz) => quiz.id === action.payload.quizId
       ) as Quiz;
-      // if (quizData.id === action.payload.quizId) {
-      //   const selectedQuiz = quizData;
-      //   console.log(selectedQuiz);
+
+      selectedQuiz.questions.forEach(
+        (question) => (question.selectedOptionId = null)
+      );
       return { ...state, currentQuiz: selectedQuiz };
-    // }
-    // return state;
 
     case "SET_SELECTED_OPTION":
+      console.log("option....");
       const { questionId, optionId } = action.payload;
-      return {
+      console.log(questionId);
+      const res = {
         ...state,
         currentQuiz: {
           ...state.currentQuiz,
           questions: state.currentQuiz?.questions.map((question) => {
+            console.log(question.id);
             return question.id === questionId
               ? { ...question, selectedOptionId: optionId }
               : question;
           }),
         } as Quiz,
       };
+      console.log(res);
+      return res;
 
     case "DISABLE_OPTION_CLICK":
       return { ...state, isOptionClickDisabled: true };
 
     case "ENABLE_OPTION_CLICK":
-      console.log("enabling...");
       return { ...state, isOptionClickDisabled: false };
+
+    case "RESET_QUIZ_STATE":
+      return { ...initialState, allQuizzes: state.allQuizzes };
 
     default:
       return state;

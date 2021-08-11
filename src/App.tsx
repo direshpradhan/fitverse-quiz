@@ -2,18 +2,19 @@ import "./App.css";
 import { Quiz } from "./pages/Quiz/Quiz";
 import { Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home/Home";
+import { Result } from "./pages/Result/Result";
+import { useQuiz } from "./context/QuizContext";
 
 function App() {
+  const {
+    state: { currentQuiz },
+  } = useQuiz();
   return (
     <div className="App">
-      <h1 className="font-bold text-3xl mt-4 mb-8 text-center">
-        Quiz Master!!
-      </h1>
-      {/* <Quiz /> */}
-
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/quiz/:quizId" element={<Quiz />} />
+        {currentQuiz && <Route path="/result" element={<Result />} />}
       </Routes>
     </div>
   );

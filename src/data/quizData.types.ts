@@ -10,7 +10,7 @@ export type Question = {
   points: number;
   negativePoint?: number;
   options: Option[];
-  selectedOptionId?: string;
+  selectedOptionId?: string | null;
 };
 
 export type Quiz = {
