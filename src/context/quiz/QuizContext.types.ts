@@ -25,6 +25,6 @@ export type Action =
     }
   | { type: "DISABLE_OPTION_CLICK" }
   | { type: "ENABLE_OPTION_CLICK" }
-  | { type: "SET_CURRENT_QUIZ"; payload: { quizId: string } }
+  | { type: "SET_CURRENT_QUIZ"; payload: { currentQuiz: Quiz } }
   | { type: "INITIALIZE_ALL_QUIZZES"; payload: AllQuizzes }
   | { type: "RESET_QUIZ_STATE" };

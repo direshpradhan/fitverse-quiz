@@ -49,14 +49,10 @@ const quizReducer = (state: InitialState, action: Action): InitialState => {
       };
 
     case "SET_CURRENT_QUIZ":
-      const selectedQuiz = state.allQuizzes?.find(
-        (quiz) => quiz._id === action.payload.quizId
-      ) as Quiz;
-
-      selectedQuiz.questions.forEach(
+      action.payload.currentQuiz.questions.forEach(
         (question) => (question.selectedOptionId = null)
       );
-      return { ...state, currentQuiz: selectedQuiz };
+      return { ...state, currentQuiz: action.payload.currentQuiz };
 
     case "SET_SELECTED_OPTION":
       console.log("option....");

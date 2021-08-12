@@ -23,9 +23,10 @@ export const Home = () => {
         {allQuizzes?.map((quiz) => {
           return (
             <Link to={`/quiz/${quiz._id}`}>
-              <div className="border border-black max-w-max p-4 ml-8">
+              <div className="border-2 border-gray-300 rounded-md w-80 p-4 ml-8">
+                <img src={quiz.imageUrl} alt="Quiz Poster" />
                 <h2 className="text-lg font-bold">{quiz.quizName}</h2>
-                <div>Test Yourself by taking this Quiz!!</div>
+                <div>{quiz.description}</div>
                 <div>{quiz.questions.length} Questions</div>
               </div>
             </Link>
