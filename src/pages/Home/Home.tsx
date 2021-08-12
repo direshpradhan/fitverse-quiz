@@ -15,10 +15,10 @@ export const Home = () => {
   }, [dispatch]);
 
   return (
-    <div className="flex flex-col items-center">
-      <h1 className="font-bold text-3xl mt-4 mb-8 text-center">
+    <div className="flex flex-col items-center mt-10">
+      {/* <h1 className="font-bold text-3xl mt-4 mb-8 text-center">
         Quiz Master!!
-      </h1>
+      </h1> */}
       <div className="flex">
         {allQuizzes?.map((quiz) => {
           return (

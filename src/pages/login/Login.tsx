@@ -26,7 +26,7 @@ export const Login = () => {
       <form className="flex flex-col" onSubmit={(event) => loginHandler(event)}>
         <input
           type="text"
-          placeholder="Email/Username"
+          placeholder="Email"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           className="mt-4 py-2 px-4 border rounded-md"

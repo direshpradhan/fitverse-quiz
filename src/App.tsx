@@ -7,13 +7,18 @@ import { useQuiz } from "./context/quiz/QuizContext";
 import { Login } from "./pages/login/Login";
 import { PrivateRoute } from "./utils/PrivateRoute";
 import { Signup } from "./pages/signup/Signup";
+import { useAuth } from "./context/auth/AuthContext";
+import { Nav } from "./components/Nav";
 
 function App() {
   const {
     state: { currentQuiz },
   } = useQuiz();
+  const { token } = useAuth();
+
   return (
     <div className="App">
+      {token && <Nav />}
       <Routes>
         <PrivateRoute path="/" element={<Home />} />
         <PrivateRoute path="/quiz/:quizId" element={<Quiz />} />
