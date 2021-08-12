@@ -72,23 +72,33 @@ export const Quiz = () => {
   }, [dispatch, quizId, token]);
   return (
     <>
+      {!currentQuiz && (
+        <h2 className="text-center text-2xl font-semibold flex items-center justify-center my-40">
+          Loading....
+        </h2>
+      )}
       {currentQuiz && !startQuiz && (
         <InstructionsModal setStartQuiz={setStartQuiz} />
       )}
       {currentQuiz && startQuiz && (
-        <div className="flex flex-col items-center">
-          <div className="flex justify-between text-base font-semibold w-3/4 mb-4">
-            <h3 className="">{currentQuiz?.quizName}</h3>
-            <div className="">Score: {score}</div>
+        <div className="flex flex-col items-center mt-8 w-1/2 mx-auto">
+          <h3 className="text-xl font-bold mb-8">{currentQuiz?.quizName}</h3>
+          <div className="flex justify-between text-base font-semibold w-full mb-6">
+            <div className="p-2 text-lg font-semibold">
+              <span className="text-gray-700 pr-1">Question:</span>{" "}
+              {currentQuestionNumber}/5
+            </div>
+            <div className="text-lg font-semibold p-2">
+              <span className="text-gray-700 pr-1">Score:</span> {score}
+            </div>
           </div>
-          <div className="p-2 mb-4 text-lg">
-            Question {currentQuestionNumber} :
-            <span className="pl-3">{currentQuestion?.question}</span>
+          <div className="pl-3 self-start text-lg font-medium mb-4">
+            {currentQuestion?.question}
           </div>
           {currentQuestion?.options.map((option) => (
             <button
               disabled={isOptionClickDisabled}
-              className={`block bg-gray-300 w-3/4 border-4 border-white p-3 ${
+              className={`block bg-gray-300 my-2 rounded-xl w-full p-3 font-medium ${
                 isOptionClickDisabled && option.isRight && "bg-green-500"
               } ${
                 option._id === selectedOptionId &&

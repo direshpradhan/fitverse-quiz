@@ -10,23 +10,23 @@ export const InstructionsModal = ({
     state: { currentQuiz },
   } = useQuiz();
   return (
-    <div className="h-screen mx-auto py-32 w-96">
-      <div className="border-2 border-gray-300 border-opacity-90 pt-6 pb-12 rounded-md flex flex-col items-center">
+    <div className="h-screen mx-auto py-24 w-96">
+      <div className=" pt-6 pb-12 rounded-xl shadow-2xl flex flex-col items-center bg-white">
         <h2 className="font-bold mb-2 text-2xl">Instructions</h2>
         <div className="text-lg">
-          <p className="flex items-center my-3">
+          <p className="flex items-center my-3 text-gray-600 font-medium">
             <span className="material-icons-outlined mr-2">info</span> This quiz
-            contains {currentQuiz?.totalQuestions} questions
+            contains {currentQuiz?.totalQuestions} questions in total.
           </p>
-          <p className="flex items-center my-3 ">
+          <p className="flex items-center my-3 text-gray-600 font-medium">
             <span className="material-icons-outlined mr-2">info</span> 5 marks
-            for every correct answer
+            for every correct answer.
           </p>
-          <p className="flex items-center my-3 ">
+          <p className="flex items-center my-3 text-gray-600 font-medium">
             <span className="material-icons-outlined mr-2">info</span> No
-            negative marking
+            negative marking.
           </p>
-          <p className="flex items-center my-3 ">
+          <p className="flex items-center my-3 text-gray-600 font-medium">
             <span className="material-icons-outlined mr-2">info</span> No SKIP
             option!!
           </p>
