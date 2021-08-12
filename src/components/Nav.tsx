@@ -5,10 +5,10 @@ export const Nav = () => {
 
   return (
     <>
-      <div className="flex justify-between items-center h-16 sticky top-0 right-0 left-0 shadow-md">
-        <div className="ml-4 text-3xl font-bold">Fitverse Quiz</div>
+      <div className="flex justify-between items-center h-16 sticky top-0 right-0 left-0 shadow-md bg-gray-100">
+        <div className="ml-4 text-2xl font-bold">Fitverse Quiz</div>
         <button
-          className="bg-blue-700 rounded text-white px-3 py-1 mr-6 "
+          className="bg-blue-700 rounded text-white px-3 py-1 mr-4 md:mr-6 "
           onClick={() => logoutUser()}
         >
           Logout

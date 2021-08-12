@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useQuiz } from "../../context/quiz/QuizContext";
+import { QuizCard } from "./components/QuizCard";
 
 export const Home = () => {
   const {
@@ -15,24 +15,12 @@ export const Home = () => {
   }, [dispatch]);
 
   return (
-    <div className="flex flex-col items-center mt-10">
-      {/* <h1 className="font-bold text-3xl mt-4 mb-8 text-center">
-        Quiz Master!!
-      </h1> */}
-      <div className="flex">
+    <>
+      <div className="flex flex-col gap-6 md:gap-12 mx-auto w-11/12 md:w-screen md:flex-row items-center md:justify-center py-8 md:py-10">
         {allQuizzes?.map((quiz) => {
-          return (
-            <Link to={`/quiz/${quiz._id}`}>
-              <div className="border-2 border-gray-300 rounded-md w-80 p-4 ml-8">
-                <img src={quiz.imageUrl} alt="Quiz Poster" />
-                <h2 className="text-lg font-bold">{quiz.quizName}</h2>
-                <div>{quiz.description}</div>
-                <div>{quiz.questions.length} Questions</div>
-              </div>
-            </Link>
-          );
+          return <QuizCard quiz={quiz} />;
         })}
       </div>
-    </div>
+    </>
   );
 };

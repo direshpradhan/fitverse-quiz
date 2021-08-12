@@ -17,7 +17,7 @@ function App() {
   const { token } = useAuth();
 
   return (
-    <div className="App">
+    <div className="App bg-gray-50 min-h-screen">
       {token && <Nav />}
       <Routes>
         <PrivateRoute path="/" element={<Home />} />
