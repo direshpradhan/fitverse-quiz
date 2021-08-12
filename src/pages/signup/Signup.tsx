@@ -29,7 +29,7 @@ export const Signup = () => {
   return (
     <div className="flex flex-col w-11/12 md:w-1/2 lg:w-1/3 pt-40 mx-auto">
       <h2 className="font-bold text-3xl text-center mb-4">
-        Sign up for Fitverse Social
+        Sign up for Fitverse Quiz
       </h2>
       <form
         onSubmit={(event) => signupHandler(event)}
