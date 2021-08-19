@@ -11,7 +11,7 @@ export const Result = () => {
   // ) as number;
 
   return (
-    <div className="w-1/2 mx-auto my-8">
+    <div className="w-11/12 md:w-2/3 lg:w-1/2 mx-auto my-8">
       <div className="text-center font-semibold text-2xl mb-4">Result</div>
       <div>
         <h2 className="font-semibold text-xl text-center">

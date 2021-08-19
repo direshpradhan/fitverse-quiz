@@ -48,7 +48,7 @@ export const QuizContainer = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center mt-8 w-1/2 mx-auto">
+      <div className="flex flex-col items-center mt-8 w-11/12 md:w-2/3 lg:w-1/2 mx-auto">
         <h3 className="text-xl font-bold mb-8">{currentQuiz?.quizName}</h3>
         <div className="flex justify-between text-base font-semibold w-full mb-6">
           <div className="p-2 text-lg font-semibold">

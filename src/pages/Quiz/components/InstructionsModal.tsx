@@ -10,7 +10,7 @@ export const InstructionsModal = ({
     state: { currentQuiz },
   } = useQuiz();
   return (
-    <div className="h-screen mx-auto py-24 w-96">
+    <div className=" mx-auto mt-28 md:mt-24 w-96">
       <div className=" pt-6 pb-12 rounded-xl shadow-2xl flex flex-col items-center bg-white">
         <h2 className="font-bold mb-2 text-2xl">Instructions</h2>
         <div className="text-lg">
