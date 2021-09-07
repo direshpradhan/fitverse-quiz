@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { Alert } from "../../components/Alert";
 import { useAuth } from "../../context/auth/AuthContext";
 
 export const Login = () => {
@@ -7,13 +8,26 @@ export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState("idle");
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
-  const loginHandler = (event: any) => {
+  const loginHandler = async (event: any) => {
     event.preventDefault();
     if (email !== "" && password !== "") {
       setLoginStatus("loading");
-      loginUserWithCredentials(email, password);
+      const response = await loginUserWithCredentials(email, password);
+      if (response.status === 401 || response.status === 403) {
+        setLoginStatus("Error");
+        setErrorMessage(response?.data?.message);
+      } else {
+        setLoginStatus("fulfilled");
+      }
+    } else {
+      if (email === "") {
+        setErrorMessage("Please enter email !!");
+      } else if (password === "") {
+        setErrorMessage("Please enter password !!");
+      }
     }
   };
 
@@ -21,13 +35,14 @@ export const Login = () => {
     token && navigate("/");
   }, [token, navigate]);
   return (
-    <div className="flex flex-col w-11/12 md:w-1/2 lg:w-1/3 pt-52 mx-auto h-screen">
+    <div className="flex flex-col w-11/12 md:w-1/2 lg:w-1/3 pt-44 mx-auto h-screen">
       <h2 className="font-bold text-3xl text-center mb-4">
         Login to Fitverse Quiz
       </h2>
+      {errorMessage && <Alert message={errorMessage} />}
       <form className="flex flex-col" onSubmit={(event) => loginHandler(event)}>
         <input
-          type="text"
+          type="email"
           placeholder="Email"
           value={email}
           onChange={(event) => setEmail(event.target.value)}

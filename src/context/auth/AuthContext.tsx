@@ -28,20 +28,19 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
 
   const loginUserWithCredentials = async (email: string, password: string) => {
     try {
+      const response = await loginService(email, password);
       const {
-        data: { token, response },
+        data: { token },
         status,
-      } = await loginService(email, password);
+      } = response;
       if (status === 201) {
         loginUser(token);
       }
       return response;
     } catch (error) {
       const { response, message } = error as AxiosError;
-      if (response?.status === 401) {
-        return response;
-      }
       console.log("Error with login", message);
+      return response;
     }
   };
 
@@ -52,15 +51,17 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
     password: string
   ) => {
     try {
-      const {
-        data: { token, response },
-        status,
-      } = await signupService({
+      const response = await signupService({
         firstName,
         lastName,
         email,
         password,
       });
+
+      const {
+        data: { token },
+        status,
+      } = response;
 
       if (status === 201) {
         loginUser(token);
@@ -68,10 +69,8 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
       return response;
     } catch (error) {
       const { response, message } = error as AxiosError;
-      if (response?.status === 403) {
-        return response;
-      }
       console.log("Error with signup", message);
+      return response;
     }
   };
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { Alert } from "../../components/Alert";
 import { useAuth } from "../../context/auth/AuthContext";
 
 export const Signup = () => {
@@ -7,11 +8,12 @@ export const Signup = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [signupStatus, setSignupStatus] = useState("idle");
   const navigate = useNavigate();
   const { token, signupWithUserData } = useAuth();
 
-  const signupHandler = (event: any) => {
+  const signupHandler = async (event: any) => {
     event.preventDefault();
     if (
       firstName !== "" &&
@@ -20,7 +22,27 @@ export const Signup = () => {
       password !== ""
     ) {
       setSignupStatus("loading");
-      signupWithUserData(firstName, lastName, email, password);
+      const response = await signupWithUserData(
+        firstName,
+        lastName,
+        email,
+        password
+      );
+      if (response.status === 401 || response.status === 403) {
+        setErrorMessage(response.data.message);
+        setSignupStatus("error");
+      }
+      setSignupStatus("fulfilled");
+    } else {
+      if (firstName === "") {
+        setErrorMessage("Please enter First Name !!");
+      } else if (lastName === "") {
+        setErrorMessage("Please enter Last Name !!");
+      } else if (email === "") {
+        setErrorMessage("Please enter Email !!");
+      } else if (password === "") {
+        setErrorMessage("Please enter Password !!");
+      }
     }
   };
 
@@ -33,6 +55,7 @@ export const Signup = () => {
       <h2 className="font-bold text-3xl text-center mb-4">
         Sign up for Fitverse Quiz
       </h2>
+      {errorMessage && <Alert message={errorMessage} />}
       <form
         onSubmit={(event) => signupHandler(event)}
         className="flex flex-col"
