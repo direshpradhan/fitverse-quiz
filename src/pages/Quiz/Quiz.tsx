@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { Loader } from "../../components/Loader";
 import { useAuth } from "../../context/auth/AuthContext";
 import { useQuiz } from "../../context/quiz/QuizContext";
 // import { Option, Question } from "../../data/quizData.types";
@@ -37,11 +38,7 @@ export const Quiz = () => {
 
   return (
     <>
-      {!currentQuiz && (
-        <h2 className="text-center text-2xl font-semibold flex items-center justify-center my-40">
-          Loading....
-        </h2>
-      )}
+      {!currentQuiz && <Loader />}
       {currentQuiz && !startQuiz && (
         <InstructionsModal setStartQuiz={setStartQuiz} />
       )}
