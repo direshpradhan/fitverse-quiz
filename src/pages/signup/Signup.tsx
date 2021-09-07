@@ -7,6 +7,7 @@ export const Signup = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [signupStatus, setSignupStatus] = useState("idle");
   const navigate = useNavigate();
   const { token, signupWithUserData } = useAuth();
 
@@ -18,6 +19,7 @@ export const Signup = () => {
       email !== "" &&
       password !== ""
     ) {
+      setSignupStatus("loading");
       signupWithUserData(firstName, lastName, email, password);
     }
   };
@@ -40,37 +42,40 @@ export const Signup = () => {
             type="text"
             placeholder="First Name"
             onChange={(event) => setFirstName(event.target.value)}
-            className="mt-4 py-2 pl-4 w-1/2 mr-1 border rounded-md"
+            className="mt-4 py-3 pl-4 w-1/2 mr-1 border rounded-md"
           />
           <input
             type="text"
             placeholder="Last Name"
             onChange={(event) => setLastName(event.target.value)}
-            className="mt-4 py-2 pl-4 w-1/2 ml-1 border rounded-md"
+            className="mt-4 py-3 pl-4 w-1/2 ml-1 border rounded-md"
           />
         </div>
         <input
           type="email"
           placeholder="Email"
           onChange={(event) => setEmail(event.target.value)}
-          className="mt-4 py-2 px-4 border rounded-md"
+          className="mt-4 py-3 px-4 border rounded-md"
         />
         <input
           type="password"
           placeholder="Password"
           onChange={(event) => setPassword(event.target.value)}
-          className="mt-4 py-2 px-4 border rounded-md"
+          className="mt-4 py-3 px-4 border rounded-md"
         />
         <button
           type="submit"
-          className="mt-6 bg-black text-white py-2 rounded-md"
+          className="mt-6 bg-black text-white py-2 text-lg font-semibold rounded-md"
         >
-          Signup
+          {signupStatus === "loading" ? "Signing up. Please wait..." : "Signup"}
         </button>
       </form>
-      <p className="text-center mt-4">
+      <p className="text-center mt-4 text-lg">
         Already have an account?{" "}
-        <a href="/login" className="text-blue-600">
+        <a
+          href="/login"
+          className="text-blue-600 font-semibold hover:underline"
+        >
           Login
         </a>
       </p>

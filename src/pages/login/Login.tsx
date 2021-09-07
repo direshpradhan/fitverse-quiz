@@ -6,11 +6,13 @@ export const Login = () => {
   const { token, loginUserWithCredentials } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginStatus, setLoginStatus] = useState("idle");
   const navigate = useNavigate();
 
   const loginHandler = (event: any) => {
     event.preventDefault();
     if (email !== "" && password !== "") {
+      setLoginStatus("loading");
       loginUserWithCredentials(email, password);
     }
   };
@@ -29,7 +31,7 @@ export const Login = () => {
           placeholder="Email"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
-          className="mt-4 py-2 px-4 border rounded-md"
+          className="mt-4 py-3 px-4 border rounded-md"
         />
         <input
           type="password"
@@ -37,18 +39,30 @@ export const Login = () => {
           name="password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
-          className="mt-4 py-2 px-4 border rounded-md "
+          className="mt-4 py-3 px-4 border rounded-md "
         />
         <button
           type="submit"
-          className="mt-6 bg-black text-white py-2 rounded-md"
+          className="mt-6 bg-black text-white py-2 text-lg font-semibold rounded-md"
         >
-          Login
+          {loginStatus === "loading" ? "Logging in. Please wait..." : "Login"}
         </button>
       </form>
-      <p className="text-center mt-4">
+      <p
+        className="mt-2 text-center text-blue-600 font-semibold text-lg cursor-pointer hover:underline"
+        onClick={() => {
+          loginUserWithCredentials("test@test.com", "test@123");
+          setLoginStatus("loading");
+        }}
+      >
+        Login as guest
+      </p>
+      <p className="text-center mt-4 text-lg">
         Don't have an account?{" "}
-        <a href="/signup" className="text-blue-600">
+        <a
+          href="/signup"
+          className="text-blue-600 font-semibold hover:underline"
+        >
           Signup
         </a>
       </p>

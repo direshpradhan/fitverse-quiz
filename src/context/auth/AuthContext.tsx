@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import { createContext, FunctionComponent, useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { loginService } from "../../services/loginService/Login.services";
@@ -36,8 +37,8 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
       }
       return response;
     } catch (error) {
-      const { response, message } = error;
-      if (response.status === 401) {
+      const { response, message } = error as AxiosError;
+      if (response?.status === 401) {
         return response;
       }
       console.log("Error with login", message);
@@ -66,8 +67,8 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
       }
       return response;
     } catch (error) {
-      const { response, message } = error;
-      if (response.status === 403) {
+      const { response, message } = error as AxiosError;
+      if (response?.status === 403) {
         return response;
       }
       console.log("Error with signup", message);

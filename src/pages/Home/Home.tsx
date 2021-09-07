@@ -18,7 +18,7 @@ export const Home = () => {
     <>
       <div className="flex flex-col gap-6 md:gap-12 mx-auto w-11/12 md:w-screen md:flex-row items-center md:justify-center py-8 md:py-10">
         {allQuizzes?.map((quiz) => {
-          return <QuizCard quiz={quiz} />;
+          return <QuizCard key={quiz._id} quiz={quiz} />;
         })}
       </div>
     </>
