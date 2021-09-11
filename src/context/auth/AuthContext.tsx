@@ -1,4 +1,4 @@
-import { AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 import { createContext, FunctionComponent, useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { loginService } from "../../services/loginService/Login.services";
@@ -15,6 +15,16 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
   const location = useLocation();
   const state = location.state as LocationState;
   token && setupAuthHeadersForServiceCalls(token);
+
+  axios.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      if (error?.response?.status === 403) {
+        logoutUser();
+      }
+      return Promise.reject(error);
+    }
+  );
 
   const loginUser = (loginToken: string | null) => {
     setToken(loginToken);

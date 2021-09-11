@@ -8,10 +8,7 @@ export const Alert = ({ message }: { message: string }) => {
         role="alert"
       >
         <span className="material-icons-outlined">error</span>
-        <span className="block sm:inline">{message}</span>
-        {/* <span className="material-icons-outlined absolute bottom-0 right-0 px-2 top-3">
-          close
-        </span> */}
+        <span>{message}</span>
       </div>
     </>
   );
