@@ -88,7 +88,7 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
     setToken(null);
     setupAuthHeadersForServiceCalls(null);
     localStorage.removeItem("login");
-    navigate("/");
+    navigate("/login");
   };
 
   return (

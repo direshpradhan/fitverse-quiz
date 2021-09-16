@@ -43,7 +43,7 @@ export const QuizContainer = () => {
         ? navigate("/result", { replace: true })
         : dispatch({ type: "INCREMENT_QUESTION_NUMBER" });
       dispatch({ type: "ENABLE_OPTION_CLICK" });
-    }, 3000);
+    }, 1000);
   };
 
   return (

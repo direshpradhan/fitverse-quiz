@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { Loader } from "../../components/Loader";
 import { useAuth } from "../../context/auth/AuthContext";
 import { useQuiz } from "../../context/quiz/QuizContext";
@@ -17,9 +17,10 @@ export const Quiz = () => {
     state: { currentQuiz },
     dispatch,
   } = useQuiz();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    token &&
+    if (token) {
       (async function () {
         try {
           const response = await axios.get(`${API_URL}/quiz/${quizId}`);
@@ -33,8 +34,11 @@ export const Quiz = () => {
           console.log("Error getting quiz by Id from backend", error);
         }
       })();
+    } else {
+      navigate("/login");
+    }
     // return () => dispatch({ type: "RESET_QUIZ_STATE" });
-  }, [dispatch, quizId, token]);
+  }, [dispatch, quizId, token, navigate]);
 
   return (
     <>

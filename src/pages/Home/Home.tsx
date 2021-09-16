@@ -1,5 +1,7 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router";
 import { Loader } from "../../components/Loader";
+import { useAuth } from "../../context/auth/AuthContext";
 import { useQuiz } from "../../context/quiz/QuizContext";
 import { QuizCard } from "./components/QuizCard";
 
@@ -8,12 +10,15 @@ export const Home = () => {
     state: { allQuizzes },
     dispatch,
   } = useQuiz();
+  const { token } = useAuth();
+  const navigate = useNavigate();
 
   console.log(allQuizzes);
 
   useEffect(() => {
     dispatch({ type: "RESET_QUIZ_STATE" });
-  }, [dispatch]);
+    !token && navigate("/login");
+  }, [dispatch, token, navigate]);
 
   return (
     <>
